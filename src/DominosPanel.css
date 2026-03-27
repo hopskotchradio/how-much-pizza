@@ -1,0 +1,231 @@
+.dominos-panel {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  border: 1px solid var(--text-dim);
+}
+
+.dominos-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.dominos-logo {
+  font-size: 0.75rem;
+  letter-spacing: -2px;
+}
+
+/* Zip Search */
+.zip-search {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.zip-input {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border: 2px solid var(--text-dim);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.zip-input:focus {
+  border-color: var(--accent);
+}
+
+.zip-input::placeholder {
+  color: var(--text-dim);
+}
+
+.zip-btn {
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  white-space: nowrap;
+}
+
+.zip-btn:hover {
+  opacity: 0.9;
+}
+
+.zip-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dominos-error {
+  color: var(--accent);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+/* Store List */
+.store-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.store-item {
+  text-align: left;
+  padding: 0.75rem;
+  background: var(--bg);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: var(--text);
+}
+
+.store-item:hover {
+  border-color: var(--accent);
+}
+
+.store-item:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.store-address {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.store-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Menu Section */
+.menu-section {
+  margin-top: 0.75rem;
+}
+
+.selected-store {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.change-store {
+  background: none;
+  border: 1px solid var(--text-dim);
+  color: var(--text-muted);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.change-store:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Size Picker */
+.size-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.size-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.6rem 0.25rem;
+  background: var(--bg);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: var(--text);
+}
+
+.size-btn:hover {
+  background: var(--surface-hover);
+}
+
+.size-btn.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.size-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.size-slices {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.size-price {
+  font-size: 0.7rem;
+  color: var(--accent);
+}
+
+/* Recommendation */
+.dominos-result {
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  text-align: center;
+}
+
+.rec-number {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.rec-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+.rec-detail {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+}
+
+.rec-cost {
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 400px) {
+  .size-picker {
+    grid-template-columns: 1fr;
+  }
+}

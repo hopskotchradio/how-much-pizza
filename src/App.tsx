@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { type FoodType, FOOD_CONFIGS, HUNGER_LABELS } from './types';
 import { calculate } from './calculator';
+import { DominosPanel } from './DominosPanel';
 import './App.css';
 
 function App() {
@@ -160,6 +161,17 @@ function App() {
           </div>
           {result.tip && <div className="result-tip">{result.tip}</div>}
         </section>
+
+        {/* Domino's Integration */}
+        {foodType === 'pizza' && (
+          <DominosPanel
+            adults={adults}
+            kids={kids}
+            hungerLevel={hungerLevel}
+            hasSides={hasSides}
+            wantLeftovers={wantLeftovers}
+          />
+        )}
       </main>
 
       <footer className="footer">
