@@ -1,7 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { type FoodType, FOOD_CONFIGS, HUNGER_LABELS } from './types';
 import { calculate } from './calculator';
 import { DominosPanel } from './DominosPanel';
+import { LIGHT_THEMES, DARK_THEMES, applyTheme } from './themes';
 import './App.css';
 
 function App() {
@@ -11,6 +12,29 @@ function App() {
   const [hungerLevel, setHungerLevel] = useState(2);
   const [hasSides, setHasSides] = useState(false);
   const [wantLeftovers, setWantLeftovers] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('hmp-dark-mode');
+      if (saved !== null) return saved === 'true';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
+
+  const themes = darkMode ? DARK_THEMES : LIGHT_THEMES;
+
+  // Apply theme when food type or dark mode changes
+  useEffect(() => {
+    applyTheme(themes[foodType]);
+  }, [foodType, darkMode, themes]);
+
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode((prev) => {
+      const next = !prev;
+      localStorage.setItem('hmp-dark-mode', String(next));
+      return next;
+    });
+  }, []);
 
   const result = useMemo(
     () => calculate({ foodType, adults, kids, hungerLevel, hasSides, wantLeftovers }),
@@ -19,18 +43,38 @@ function App() {
 
   const hungerInfo = HUNGER_LABELS[hungerLevel];
   const config = FOOD_CONFIGS[foodType];
+  // Food type theme names for the label
+  const THEME_NAMES: Record<FoodType, string> = {
+    pizza: '🍕 Margherita',
+    tacos: '🌮 Fiesta',
+    subs: '🥖 Deli Fresh',
+    wings: '🍗 Buffalo',
+    chinese: '🥡 Lucky Red',
+  };
 
   return (
     <div className="app">
       <header className="header">
-        <h1>🍕 How Much Pizza?</h1>
+        <div className="header-top">
+          <h1>{config.emoji} How Much {config.label}?</h1>
+          <button
+            className="mode-toggle"
+            onClick={toggleDarkMode}
+            title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {darkMode ? '☀️' : '🌙'}
+          </button>
+        </div>
         <p className="subtitle">Stop guessing. Start eating.</p>
+        <div className="theme-badge">
+          {THEME_NAMES[foodType]} {darkMode ? '(dark)' : ''}
+        </div>
       </header>
 
       <main className="calculator">
-        {/* Food Type */}
+        {/* Food Type — "Choose Your Topping" */}
         <section className="section">
-          <label className="section-label">What are you ordering?</label>
+          <label className="section-label">🎨 Choose your topping</label>
           <div className="food-grid">
             {(Object.keys(FOOD_CONFIGS) as FoodType[]).map((type) => (
               <button
@@ -176,7 +220,7 @@ function App() {
 
       <footer className="footer">
         <p>
-          Made with 🍕 by{' '}
+          Made with {config.emoji} by{' '}
           <a href="https://github.com/hopskotchradio" target="_blank" rel="noopener">
             gh0stam
           </a>
