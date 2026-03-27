@@ -1,4 +1,8 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// In production (Vercel), API routes are at /api/*
+// In development, they're at localhost:3001/api/*
+const API_BASE = import.meta.env.VITE_API_URL || (
+  import.meta.env.DEV ? 'http://localhost:3001' : ''
+);
 
 export interface DominosStore {
   id: string;
@@ -33,7 +37,7 @@ export async function findStores(zip: string): Promise<DominosStore[]> {
 }
 
 export async function getMenu(storeId: string): Promise<StoreMenu> {
-  const res = await fetch(`${API_BASE}/api/menu/${encodeURIComponent(storeId)}`);
+  const res = await fetch(`${API_BASE}/api/menu?storeId=${encodeURIComponent(storeId)}`);
   if (!res.ok) throw new Error('Failed to load menu');
   return res.json();
 }
